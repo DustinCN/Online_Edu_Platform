@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: online-edu-platform
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online_edu?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    # 使用实验三数据库；账号由 sql/lab4_init.sql 中的 edu_app 用户提供，可通过环境变量覆盖
+    username: ${DB_USERNAME:edu_app}
+    password: ${DB_PASSWORD:EduApp@123}
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      connection-timeout: 5000
+      pool-name: OnlineEduHikariPool
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  auth:
+    # 登录令牌有效期（分钟）
+    token-expire-minutes: 120
+
+logging:
+  level:
+    com.onlineedu.dao: debug
+    org.springframework.jdbc.core: info
